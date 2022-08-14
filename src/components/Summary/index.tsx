@@ -1,32 +1,61 @@
 import { ArrowCircleDown, ArrowCircleUp, CurrencyDollar } from 'phosphor-react';
+import { useMemo } from 'react';
+import { useTransactionsContext } from '../../contexts/TransactionContext';
 import { SummaryCard, SummaryContainer } from './styles';
 
-const Summary = () => (
-  <SummaryContainer>
-    <SummaryCard>
-      <header>
-        <span>Entradas</span>
-        <ArrowCircleUp size={32} color="#00b37e" />
-      </header>
-      <strong>R$ 17.700,00</strong>
-    </SummaryCard>
+const Summary = () => {
+  const { transactions } = useTransactionsContext();
 
-    <SummaryCard>
-      <header>
-        <span>Saídas</span>
-        <ArrowCircleDown size={32} color="#f75a68" />
-      </header>
-      <strong>R$ 17.700,00</strong>
-    </SummaryCard>
+  const summary = useMemo(
+    () =>
+      transactions.reduce(
+        (acc, transaction) => {
+          if (transaction.type === 'income') {
+            acc.income += transaction.price;
+            acc.total += transaction.price;
+          } else {
+            acc.outcome += transaction.price;
+            acc.total -= transaction.price;
+          }
 
-    <SummaryCard variant="green">
-      <header>
-        <span>Entradas</span>
-        <CurrencyDollar size={32} color="#ffffff" />
-      </header>
-      <strong>R$ 17.700,00</strong>
-    </SummaryCard>
-  </SummaryContainer>
-);
+          return acc;
+        },
+        {
+          income: 0,
+          outcome: 0,
+          total: 0,
+        }
+      ),
+    [transactions]
+  );
+
+  return (
+    <SummaryContainer>
+      <SummaryCard>
+        <header>
+          <span>Entradas</span>
+          <ArrowCircleUp size={32} color="#00b37e" />
+        </header>
+        <strong>{summary.income}</strong>
+      </SummaryCard>
+
+      <SummaryCard>
+        <header>
+          <span>Saídas</span>
+          <ArrowCircleDown size={32} color="#f75a68" />
+        </header>
+        <strong>{summary.outcome}</strong>
+      </SummaryCard>
+
+      <SummaryCard variant="green">
+        <header>
+          <span>Entradas</span>
+          <CurrencyDollar size={32} color="#ffffff" />
+        </header>
+        <strong>{summary.total}</strong>
+      </SummaryCard>
+    </SummaryContainer>
+  );
+};
 
 export { Summary };
