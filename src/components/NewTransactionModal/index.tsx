@@ -1,8 +1,8 @@
-import * as Dialog from '@radix-ui/react-dialog';
-import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react';
-import { Controller, useForm } from 'react-hook-form';
-import * as zod from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
+import * as Dialog from '@radix-ui/react-dialog'
+import { ArrowCircleDown, ArrowCircleUp, X } from 'phosphor-react'
+import { Controller, useForm } from 'react-hook-form'
+import * as zod from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import {
   Overlay,
@@ -10,35 +10,42 @@ import {
   CloseButton,
   TransactionType,
   TransactionTypeButton,
-} from './styles';
+} from './styles'
+import { useCallback } from 'react'
+import { useTransactionsContext } from '../../contexts/TransactionContext'
 
 const newTransactionFormSchema = zod.object({
   description: zod.string(),
   price: zod.number(),
   category: zod.string(),
   type: zod.enum(['income', 'outcome']),
-});
+})
 
-type NewTransactionFormInputs = zod.infer<typeof newTransactionFormSchema>;
+type NewTransactionFormInputs = zod.infer<typeof newTransactionFormSchema>
 
 const NewTransactionModal = () => {
+  const { createTransaction } = useTransactionsContext()
+
   const {
     control,
     register,
     handleSubmit,
+    reset,
     formState: { isSubmitting },
   } = useForm<NewTransactionFormInputs>({
     resolver: zodResolver(newTransactionFormSchema),
     defaultValues: {
       type: 'income',
     },
-  });
+  })
 
-  const handleCreateNewTransaction = async (data: NewTransactionFormInputs) => {
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
-    console.log(data);
-  };
+  const handleCreateNewTransaction = useCallback(
+    async (data: NewTransactionFormInputs) => {
+      await createTransaction(data)
+      reset()
+    },
+    [reset, createTransaction],
+  )
 
   return (
     <Dialog.Portal>
@@ -98,7 +105,7 @@ const NewTransactionModal = () => {
         </form>
       </Content>
     </Dialog.Portal>
-  );
-};
+  )
+}
 
-export { NewTransactionModal };
+export { NewTransactionModal }

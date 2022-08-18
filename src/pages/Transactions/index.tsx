@@ -1,16 +1,16 @@
-import { Header } from '../../components/Header';
-import { Summary } from '../../components/Summary';
-import { useTransactionsContext } from '../../contexts/TransactionContext';
-import { dateFormatter, priceFormatter } from '../../utils/formatter';
-import { SearchForm } from './components/SearchForm';
+import { Header } from '../../components/Header'
+import { Summary } from '../../components/Summary'
+import { useTransactionsContext } from '../../contexts/TransactionContext'
+import { dateFormatter, priceFormatter } from '../../utils/formatter'
+import { SearchForm } from './components/SearchForm'
 import {
   PriceHighlight,
   TransactionsContainer,
   TransactionsTable,
-} from './styles';
+} from './styles'
 
 const Transactions = () => {
-  const { transactions } = useTransactionsContext();
+  const { transactions } = useTransactionsContext()
 
   return (
     <div>
@@ -22,7 +22,7 @@ const Transactions = () => {
 
         <TransactionsTable>
           <tbody>
-            {transactions.map(transaction => (
+            {transactions.map((transaction) => (
               <tr key={transaction.id}>
                 <td width="50%">{transaction.description}</td>
                 <td>
@@ -39,7 +39,7 @@ const Transactions = () => {
         </TransactionsTable>
       </TransactionsContainer>
     </div>
-  );
-};
+  )
+}
 
-export { Transactions };
+export { Transactions }
