@@ -8,7 +8,7 @@ export const SearchFormContainer = styled.form`
     flex: 1;
     border-radius: 6px;
     border: 0;
-    color: ${props => props.theme['gray-600']};
+    color: ${props => props.theme['gray-300']};
     background: ${props => props.theme['gray-900']};
     padding: 1rem;
 
@@ -24,6 +24,7 @@ export const SearchFormContainer = styled.form`
     gap: 0.75rem;
 
     padding: 1rem;
+    cursor: pointer;
     background: transparent;
     border: 1px solid ${props => props.theme['green-300']};
     color: ${props => props.theme['green-300']};
@@ -31,10 +32,15 @@ export const SearchFormContainer = styled.form`
     border-radius: 6px;
     transition: all 0.2s;
 
-    &:hover {
+    &:not(:disabled):hover {
       background: ${props => props.theme['green-500']};
       color: ${props => props.theme['white']};
       border: 1px solid ${props => props.theme['green-500']};
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
   }
 `;
