@@ -1,8 +1,12 @@
 import { useMemo } from 'react'
-import { useTransactionsContext } from '../contexts/TransactionContext'
+import { useContextSelector } from 'use-context-selector'
+import { TransactionsContext } from '../contexts/TransactionContext'
 
 export const useSummary = () => {
-  const { transactions } = useTransactionsContext()
+  const transactions = useContextSelector(
+    TransactionsContext,
+    (context) => context.transactions,
+  )
 
   const summary = useMemo(
     () =>
