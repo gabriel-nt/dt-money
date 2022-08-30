@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/gabriel-nt/ignite-timer/blob/master/src/assets/logo-ignite.svg" alt="Timer" />
+  <img src="https://github.com/gabriel-nt/dt-money/blob/master/src/assets/logo.svg" alt="Timer" />
 </p>
 
 <h1 align="center">
@@ -30,7 +30,7 @@
 - [x] Sumário das transações
 
 ### 💻 Demonstração
-<img src="https://github.com/gabriel-nt/ignite-timer/blob/master/src/assets/cover.png" alt="Imagem de demonstração" />
+<img src="https://github.com/gabriel-nt/dt-money/blob/master/src/assets/cover.svg" alt="Imagem de demonstração" />
 
 ### ⚙ Pré-requisitos
 
